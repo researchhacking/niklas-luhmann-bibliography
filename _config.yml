@@ -2,6 +2,6 @@ title: Niklas Luhmann Bibliography Search
 description: >-
   .
 url: "https://researchhacking.github.io/niklas-luhmann-bibliographie/"
-
+baseurl: "/niklas-luhmann-bibliographie"
 sass:
   style: compressed
