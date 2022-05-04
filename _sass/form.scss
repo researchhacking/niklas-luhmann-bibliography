@@ -1,0 +1,8 @@
+form[name=search] {
+	display: flex;
+	flex-direction: column;
+
+	> label {
+		margin: 0 0 .5em;
+	}
+}

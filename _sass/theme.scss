@@ -1,0 +1,63 @@
+/*
+   Code inspired by:
+   https://dev.to/chicio/add-dark-mode-support-on-your-website-with-sass-and-prefers-color-scheme-media-query-2p1
+*/
+$dark-theme: "dark-theme";
+$light-theme: "light-theme";
+
+$primary-color-dark: "primary-color-dark";
+$primary-color: "primary-color";
+$primary-color-light: "primary-color-light";
+$primary-color-text: "primary-color-text";
+$primary-color-link: "primary-color-link";
+$accent-color: "accent-color";
+$secondary-text-color: "secondary-text-color";
+$divider-color: "divider-color";
+$general-background: "general-background";
+$general-background-light: "general-background-light";
+
+$themes: (
+  $light-theme: (
+    $primary-color-dark: #303F9F,
+    $primary-color: #3F51B5,
+    $primary-color-light: #DFDFF1,
+    $primary-color-text: #444,
+    $primary-color-link: MediumBlue,
+    $accent-color: #0F67FF,
+    $secondary-text-color: #575757,
+    $divider-color: #BDBDBD,
+    $general-background: WhiteSmoke,
+    $general-background-light: #FFFFFF,
+  ),
+  $dark-theme: (
+    $primary-color-dark: #303F9F,
+    $primary-color: #3F51B5,
+    $primary-color-light: #DFDFF1,
+    $primary-color-text: WhiteSmoke,
+    $primary-color-link: DarkOrange,
+    $accent-color: #4fA7ff,
+    $secondary-text-color: #A6A6A6,
+    $divider-color: #575757,
+    $general-background: #444,
+    $general-background-light: #363636,
+  )
+);
+
+@mixin themeProperty($theme, $property, $color, $additionalPropertiesPositionIsFront, $additionalProperties) {
+  @if $additionalPropertiesPositionIsFront {
+    #{$property}: unquote($additionalProperties + ' ' + map-get($theme, $color) + ';');
+  } @else {
+    #{$property}: unquote(map-get($theme, $color) + ' ' + $additionalProperties + ';');
+  }
+}
+
+@mixin theme($property, $color, $additionalPropertiesPositionIsFront: false, $additionalProperties: '') {
+  $light: map-get($themes, $light-theme);
+  $dark: map-get($themes, $dark-theme);
+
+  @include themeProperty($light, $property, $color, $additionalPropertiesPositionIsFront, $additionalProperties);
+
+  @media (prefers-color-scheme: dark) {
+    @include themeProperty($dark, $property, $color, $additionalPropertiesPositionIsFront, $additionalProperties);
+  }
+}
