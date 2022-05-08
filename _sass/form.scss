@@ -6,3 +6,9 @@ form[name=search] {
 		margin: 0 0 .5em;
 	}
 }
+
+form[name=result] {
+	td {
+		vertical-align: top;
+	}
+}

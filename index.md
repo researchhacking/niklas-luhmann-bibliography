@@ -27,5 +27,20 @@ scripts:
     <button>Search</button>
   </label>
 </form>
-
-<table id="searchresult"></table>
+<form name="result">
+  <button>Bibtex</button>
+  <table id="searchresult">
+    <thead>
+      <tr>
+        <th><input type="checkbox" name="selectall" /></th>
+        <th>Literature</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><input type="checkbox" name="item" value="1" /></td><td>test</td></tr>
+      <tr><td><input type="checkbox" name="item" value="2" /></td><td>test</td></tr>
+      <tr><td><input type="checkbox" name="item" value="3" /></td><td>test</td></tr>
+      <tr><td><input type="checkbox" name="item" value="4" /></td><td>test</td></tr>
+    </tbody>
+  </table>
+</form>
