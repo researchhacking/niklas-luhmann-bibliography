@@ -2,6 +2,7 @@
 layout: default
 aside: about.html
 scripts:
+  - /scripts/app.js
   - /scripts/form.js
 ---
 
