@@ -1,5 +1,12 @@
+/**
+ * Base URL for the API
+ */
 const api_url = 'https://v0.api.niklas-luhmann-archiv.de/BIBL';
 
+/**
+ * Update the table #searchresult
+ * @param {Event} a custom event
+ */
 const display_search = e => {
   let tbody = document.querySelector('#searchresult tbody');
   if(e.detail.results){
@@ -7,6 +14,11 @@ const display_search = e => {
   }
 };
 
+/**
+ * Request a search on the API
+ * @param {Object} The query object
+ * @fires searchresult
+ */
 const search_api = obj => {
   fetch(`${api_url}/search?q=${JSON.stringify(obj)}`)
     .then(res => res.json())
@@ -16,10 +28,18 @@ const search_api = obj => {
     });
 };
 
+/**
+ * Request a bib item by its id
+ * @param {string} Id/key for a bib item
+ * @returns {(Object|Promise)}
+ */
 const get_item_api = id => {
   return fetch(`${api_url}/item/${id}`).then(res => res.json());
 };
 
+/**
+ * Perform a search
+ */
 const search_submit = e => {
   e.preventDefault();
   let title = e.target.title.value;
