@@ -5,6 +5,10 @@ form[name=search] {
 	> label {
 		margin: 0 0 .5em;
 	}
+
+	.nodisplay {
+		display: none;
+	}
 }
 
 form[name=result] {
