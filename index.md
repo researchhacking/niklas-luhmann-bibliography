@@ -16,20 +16,24 @@ scripts:
     <input name="author"/>
   </label>
   <label>
+    <span>Niklas-Luhmann-Bibliographie</span>
+    <input name="gesamtbibliographie" type="checkbox" />
+  </label>
+  <label>
     <span>Language: </span>
-    <select name="langs" multiple size="4">
-        <!-- <option value=""></option> -->
-        {% for lang in site.data.form.languages %}
-          <option value="{{ lang.key }}" >{{ lang.name }}</option>
-        {% endfor %}
+    <select name="languages" multiple size="4">
+      {% for lang in site.data.form.languages %}
+        <option value="{{ lang.key }}" >{{ lang.name }}</option>
+      {% endfor %}
     </select>
   </label>
   <label>
-    <button>Search</button>
+    <button name="search">Search</button>
   </label>
+  <input name="rows" type="range" value="50" class="nodisplay" />
 </form>
 <form name="result">
-  <button>Bibtex</button>
+  <button name="bibtex">Bibtex</button>
   <table id="searchresult">
     <thead>
       <tr>
@@ -38,10 +42,6 @@ scripts:
       </tr>
     </thead>
     <tbody>
-      <tr><td><input type="checkbox" name="item" value="1" /></td><td>test</td></tr>
-      <tr><td><input type="checkbox" name="item" value="2" /></td><td>test</td></tr>
-      <tr><td><input type="checkbox" name="item" value="3" /></td><td>test</td></tr>
-      <tr><td><input type="checkbox" name="item" value="4" /></td><td>test</td></tr>
     </tbody>
   </table>
 </form>
