@@ -4,6 +4,7 @@ aside: about.html
 scripts:
   - /scripts/app.js
   - /scripts/form.js
+  - /scripts/bibtex.js
 ---
 
 <form name="search">
