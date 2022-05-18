@@ -13,7 +13,7 @@ const display_search = e => {
   let form = tbody.closest('form');
   form.selectall.checked = false;
   /* replace tbody with new rows */
-  if(e.detail.results){
+  if(e.detail.result){
     tbody.innerHTML = e.detail.result.results.map(result => `<tr><td><input type="checkbox" name="item" value="${result.id}"/></td><td>${result.displayTitle}</td></tr>`).join('');
   }
 };
@@ -48,7 +48,7 @@ const get_item_api = id => {
  */
 const history_push = e => {
   let query = e.detail.query;
-  history.pushState(obj, '', `?q=${JSON.stringify(query)}`)
+  history.pushState(query, '', `?q=${JSON.stringify(query)}`)
 };
 
 /**
@@ -107,6 +107,7 @@ const result_submit = e => {
   e.preventDefault();
   let data = new FormData(e.target);
   let items = data.getAll('item').map(value => get_item_api(value));
+  //let button = e.sbumitter; // button clicked
   Promise.all(items).then(arr => {
     console.log(arr);
     let event = new CustomEvent('searchitems', {detail: arr});
