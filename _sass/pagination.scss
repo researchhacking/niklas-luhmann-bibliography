@@ -1,0 +1,14 @@
+.pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > .title {
+    font-weight: bold;
+  }
+  > .links {
+    display: flex;
+    flex-direction: row;
+    gap: .4em;
+  }
+}
