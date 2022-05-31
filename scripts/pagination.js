@@ -1,14 +1,12 @@
 const set_pagination = e => {
   let total_num = e.detail.result.numberOfResults;
   let pages_num  = Math.ceil(total_num / 50);
-  let current_page = parseInt(e.detail.query.page ?? 1);
   let q = e.detail.query;
-  q.page = current_page;
-  console.log(q);
+  let current_page = parseInt(q.page ?? 1);
   let divs = document.querySelectorAll('div.pagination');
   divs.forEach(div => {
     let str = '';
-    str += `<div class="title">Page ${current_page} of ${total_num}</div>`;
+    str += `<div class="title">Page ${current_page} of ${pages_num}</div>`;
     str += `<div class="links">`;
     if(current_page > 1) str += `<a href="${current_page-1}">&lt;&lt;</a>`;
     [...Array(pages_num).keys()]
