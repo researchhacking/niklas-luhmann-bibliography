@@ -78,6 +78,21 @@ const display_search_form = obj => {
   search_api(obj);
 };
 
+const form_to_q = form => {
+  let title = form.title.value;
+  let author = form.author.value;
+  let lang_arr = [...form.languages.options].filter(opt => opt.selected).map(opt => opt.value);
+
+  let q = {};
+  q.rows = form.rows.value;
+  q.page = form.page.value;
+  q.gesamtbibliographie = (form.gesamtbibliographie.checked) ? "true" : "false";
+  if(title) q.title = title;
+  if(author) q.author = author;
+  if(lang_arr.length > 0) q.languages = lang_arr;
+  return q;
+};
+
 /**
  * Perform a search
  * Collects data from the form in an object q.
@@ -85,16 +100,8 @@ const display_search_form = obj => {
  */
 const search_submit = e => {
   e.preventDefault();
-  let title = e.target.title.value;
-  let author = e.target.author.value;
-  let lang_arr = [...e.target.languages.options].filter(opt => opt.selected).map(opt => opt.value);
-
-  let q = {};
-  q.rows = e.target.rows.value;
-  q.gesamtbibliographie = (e.target.gesamtbibliographie.checked) ? "true" : "false";
-  if(title) q.title = title;
-  if(author) q.author = author;
-  if(lang_arr.length > 0) q.languages = lang_arr;
+  e.target.page.value = 1;
+  let q = form_to_q(e.target);
   search_api(q);
 };
 
@@ -136,6 +143,12 @@ const result_change = e => {
   }
 };
 
+const update_page = e => {
+  document.forms.search.page.value = e.detail;
+  let q = form_to_q(document.forms.search);
+  search_api(q);
+};
+
 document.addEventListener('DOMContentLoaded', e => {
   let params = new URLSearchParams(location.search);
   let q = JSON.parse(params.get('q'));
@@ -149,4 +162,5 @@ document.addEventListener('DOMContentLoaded', e => {
   // custom events
   document.addEventListener('searchresult', display_search);
   document.addEventListener('searchresult', history_push);
+  document.addEventListener('pagination', update_page);
 });
