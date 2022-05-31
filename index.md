@@ -5,6 +5,7 @@ scripts:
   - /scripts/app.js
   - /scripts/form.js
   - /scripts/bibtex.js
+  - /scripts/pagination.js
 ---
 
 <form name="search">
@@ -32,9 +33,11 @@ scripts:
     <button name="search">Search</button>
   </label>
   <input name="rows" type="range" value="50" class="nodisplay" />
+  <input name="page" type="range" value="1" class="nodisplay" />
 </form>
 <form name="result">
   <button name="bibtex">Bibtex</button>
+  <div class="pagination"></div>
   <table id="searchresult">
     <thead>
       <tr>
