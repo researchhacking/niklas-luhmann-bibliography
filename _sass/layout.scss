@@ -23,7 +23,7 @@ body {
 	> main {
 		order: 4;
 		padding: .4em 1em .4em .4em;
-		width: calc(80% - .4em - 1em);
+		position: relative;
 	}
 
 	> nav {
