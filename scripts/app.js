@@ -6,4 +6,10 @@ document.addEventListener('DOMContentLoaded', e => {
         console.log('Registration failed with', error);
       });
   }
+
+  document.addEventListener('searchitems', e => {
+    let elm = document.querySelector('bibtex-export');
+    elm.list = e.detail;
+    elm.show();
+  });
 });
