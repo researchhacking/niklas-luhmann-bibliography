@@ -5,3 +5,5 @@ url: "https://researchhacking.github.io/niklas-luhmann-bibliography/"
 baseurl: "/niklas-luhmann-bibliography"
 sass:
   style: compressed
+exclude:
+  - components/*.css
