@@ -8,6 +8,10 @@ scripts:
   - /components/bibtex-export.js
 ---
 
+<section id="about">
+{% include about.html %}
+</section>
+
 <form name="search">
   <label>
     <span>Title: </span>
