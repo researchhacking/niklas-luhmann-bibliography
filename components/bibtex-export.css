@@ -28,3 +28,10 @@ div.wrapper textarea {
 div.wrapper.show {
   display: flex;
 }
+
+svg.close {
+  display: block;
+  width: 1em;
+  height: 1em;
+  margin: .2em;
+}

@@ -19,7 +19,7 @@ customElements.define("bibtex-export", class extends HTMLElement {
     ['editors','editor']
   ]};
 
-  exclude_keys = ['notes', 'display', 'WerkID', 'type', 'ptrs',
+  exclude_keys = ['notes', 'display', 'WerkID', 'type',
   'title_alt', 'id', 'imprint-notes', 'sortKey', 'status', 'authorsHTML',
   'editorsHTML', 'isGesamtbibliographie', 'isReadyForPublication',
   'relatedItems'];
@@ -36,7 +36,11 @@ customElements.define("bibtex-export", class extends HTMLElement {
     wrapper.classList.add('wrapper');
     // wrapper.classList.add('show');
     wrapper.innerHTML = `<menu>
-        <li><a href="close">close</a></li>
+        <li><a href="close">
+        <svg class="close" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill="white" fill-rule="evenodd" d="M 1 1 Q 10 -1 19 1 Q 21 10 19 19 Q 10 21 1 19 Q -1 10 1 1 M 4 2 L 10 7 L 16 2 Q 17 2 18 4 L 13 10 L 18 16 Q 17 18 16 18 L 10 13 L 4 18 Q 2 17 2 16 L 7 10 L 2 4 Q 2 3 4 2"/>
+        </svg>
+        </a></li>
       </menu>
       <textarea></textarea>`;
     
@@ -58,10 +62,17 @@ customElements.define("bibtex-export", class extends HTMLElement {
 
       let value = keys.map(arr => {
         let key = arr[0];
-        let val = (parseInt(obj[key])) ? obj[key] : `"${obj[key]}"`;
+        let val = (parseInt(obj[key])) ? obj[key] : `{${obj[key]}}`;
         return (this.func_map.has(key)) ? this.func_map.get(key)(obj[key], key) : `${arr[1]} = ${val}`;
       }).join(",\n  ");
       return value;
+    });
+
+    this.func_map.set('ptrs', arr => {
+      let value = arr
+        .filter(rel => rel.type == 'ZK')
+        .map(rel => `${rel.n} ${rel.target}`).join("\n\n");
+      return `note = "${value}"`;
     });
 
     this.func_map.set('imprint', obj => {
@@ -91,11 +102,11 @@ customElements.define("bibtex-export", class extends HTMLElement {
 
     this.func_map.set('dateKey', str => {
       // TODO: look out for date strings
-      return `year = ${str}`;
+      return `year = {${str}}`;
     });
 
     this.func_map.set('citedRange', str => {
-      return `pages = ${str.replace(/\-{1,2}/, '--')}`;
+      return `pages = {${str.replace(/\-{1,2}/, '--')}}`;
     });
   }
 
@@ -133,13 +144,11 @@ customElements.define("bibtex-export", class extends HTMLElement {
 
   menu_click(e){
     e.preventDefault();
-    if(e.target.nodeName == 'A'){
-      switch(e.target.attributes['href'].value){
-        case 'close':
-          // e.target.closest('.wrapper').classList.remove('show');
-          this.shadowRoot.querySelector('.wrapper').classList.remove('show');
-          break;
-      }
+    let a = e.target.closest('a');
+    switch(a.attributes['href'].value){
+      case 'close':
+        this.shadowRoot.querySelector('.wrapper').classList.remove('show');
+        break;
     }
   }
 
