@@ -1,6 +1,8 @@
 form[name=search] {
 	display: flex;
 	flex-direction: column;
+	grid-column: 1;
+	grid-row: 1;
 
 	> label {
 		margin: 0 0 .5em;
@@ -17,6 +19,8 @@ form[name=result] {
 	grid-template-rows: auto;
 	column-gap: .5em;
   row-gap: .5em;
+  grid-column: span 2;
+	grid-row: 2;
 
 	fieldset {
 		border: none;
