@@ -158,12 +158,7 @@ customElements.define("bibtex-export", class extends HTMLElement {
 
   names_to_bibtex = (arr, key) => {
     let keys = new Map([['authors','author'],['editors','editor']]);
-    let value = arr.map(author => {
-      let arr = author.replace(/\n/g, ' ').replace(/\t/g, '').split(' ');
-      let surname = arr.slice(-1).join('');
-      let firstname = arr.slice(0,-1).join(' ');
-      return `${surname}, ${firstname}`;
-    }).join(' and ');
+    let value = arr.map(author => `${author.surname}, ${author.forename}`).join(' and ');
     return `${keys.get(key)} = {${value}}`;
   };
 
